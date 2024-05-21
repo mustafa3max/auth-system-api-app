@@ -128,6 +128,31 @@ class UserController extends Controller
         );
     }
 
+    public function verifyEmail(Request $request)
+    {
+        if (!$request->user()->hasVerifiedEmail()) {
+            try {
+                $request->user()->sendEmailVerificationNotification();
+            } catch (\Throwable $th) {
+                return response()->json(
+                    [
+                        'status' => false,
+                        'message' => 'There is an error. Verification email was not sent',
+                        'data' => null,
+                    ]
+                );
+            }
+        }
+
+        return response()->json(
+            [
+                'status' => false,
+                'message' => 'Your email has already been verified',
+                'data' => null,
+            ]
+        );
+    }
+
     private function updateAvatar(User $user, $bytes,  $extension)
     {
         $path = $user->id . '/avatars/avatar.' . $extension;
