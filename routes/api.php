@@ -6,11 +6,18 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('auth')->group(function () {
-    Route::post('sign-in', [AuthController::class, 'signIn']);
-    Route::post('sign-up', [AuthController::class, 'signUp']);
+// Auth
+Route::scopeBindings()->group(function () {
+    Route::prefix('auth')->group(function () {
+        Route::post('sign-in', [AuthController::class, 'signIn']);
+        Route::post('sign-up', [AuthController::class, 'signUp']);
+    });
+
+    Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->middleware('guest')->name('password.email');
+    Route::post('reset-password', [AuthController::class, 'resetPassword'])->middleware('guest')->name('password.reset');
 });
 
+// User
 Route::prefix('user')->group(function () {
     Route::middleware('auth:sanctum')->group(function () {
         Route::post('profile', [UserController::class, 'profile']);

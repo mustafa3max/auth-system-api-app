@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Str;
+use Illuminate\Validation\Rules\Password as RulesPassword;
 
 class AuthController extends Controller
 {
@@ -40,7 +43,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|unique:users,email',
-            'password' => ['required', 'max:12', Password::min(4)->letters()->numbers()->mixedCase()->symbols()],
+            'password' => ['required', 'max:12', RulesPassword::min(4)->letters()->numbers()->mixedCase()->symbols()],
         ]);
 
 
@@ -80,5 +83,70 @@ class AuthController extends Controller
                 'data' => null,
             ]
         );
+    }
+
+    public function forgotPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+
+        $status = Password::sendResetLink($validator->validate());
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'Email verification link has been sent.',
+                    'data' => null,
+                ]
+            );
+        }
+        return response()->json(
+            [
+                'status' => false,
+                'message' => 'There is an error. The email verification link was not sent.',
+                'data' => null,
+            ]
+        );
+    }
+
+    public function resetPassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => ['required', 'max:12', RulesPassword::min(4)->letters()->numbers()->mixedCase()->symbols()],
+            'token' => 'required',
+        ]);
+
+        $status = Password::reset(
+            $validator->validate(),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+        if ($status === Password::PASSWORD_RESET) {
+            return response()->json(
+                [
+                    'status' => true,
+                    'message' => 'New password has been set successfully.',
+                    'data' => null,
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                    'status' => false,
+                    'message' => 'There is an error, a new password has not been set.',
+                    'data' => null,
+                ]
+            );
+        }
     }
 }
