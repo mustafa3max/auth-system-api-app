@@ -1,0 +1,60 @@
+{
+    "sign-in": {
+        "email": "",
+        "password": ""
+    },
+    "sign-up": {
+        "name": "",
+        "email": "",
+        "password": ""
+    },
+    "reset-password": {
+        "email": "",
+        "password": "",
+        "token": ""
+    },
+    "forgot-password": {
+        "email": ""
+    },
+
+    "profile": {},
+    "update-user": {
+        "type": "",
+        "bytes": "",
+        "extension": "",
+        "name": ""
+    },
+    "delete-user": {
+        "email": "",
+        "password": ""
+    },
+    "sign-out": {},
+
+    "mail/verify": {},
+    "email/verify/user_id/token": {},
+    "email/verification-notification": {},
+
+    "index": {
+        "search": ""
+    },
+    "show": {
+        "client_id": 1
+    },
+    "create": {
+        "phone": "",
+        "location": "",
+        "section": "",
+        "specialization": "",
+        "specialization_type": "",
+        "governorate": "",
+        "info": ""
+    },
+    "update-client": {
+        "client_id": 1,
+        "key": "",
+        "value": ""
+    },
+    "delete-client": {
+        "client_id": 1
+    }
+}

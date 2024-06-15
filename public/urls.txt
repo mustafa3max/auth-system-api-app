@@ -1,0 +1,23 @@
+Auth
+http://localhost:8000/api/auth/sign-in
+http://localhost:8000/api/auth/sign-up
+http://localhost:8000/api/reset-password
+http://localhost:8000/api/forgot-password
+
+User And EmailVerify
+User
+http://localhost:8000/api/user/profile
+http://localhost:8000/api/user/update
+http://localhost:8000/api/user/delete
+http://localhost:8000/api/user/sign-out
+EmailVerify
+http://localhost:8000/api/user/email/verify
+http://localhost:8000/api/user/email/verify/user_id/token
+http://localhost:8000/api/user/email/verification-notification
+
+Client
+http://localhost:8000/api/client
+http://localhost:8000/api/client/show
+http://localhost:8000/api/client/create
+http://localhost:8000/api/client/update
+http://localhost:8000/api/client/delete

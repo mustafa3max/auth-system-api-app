@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ClientControll;
 use App\Http\Controllers\UserController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
@@ -51,5 +52,16 @@ Route::prefix('user')->group(function () {
                 );
             })->middleware(['auth:sanctum', 'throttle:6,1'])->name('verification.send');
         });
+    });
+});
+
+// Client
+Route::prefix('client')->group(function () {
+    Route::post('/', [ClientControll::class, 'index']);
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::post('show', [ClientControll::class, 'show']);
+        Route::post('create', [ClientControll::class, 'create']);
+        Route::post('update', [ClientControll::class, 'update']);
+        Route::post('delete', [ClientControll::class, 'delete']);
     });
 });
