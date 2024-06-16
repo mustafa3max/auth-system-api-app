@@ -52,7 +52,7 @@ class UserController extends Controller
 
                 return response()->json([
                     'status' => $update,
-                    'message' => $update ? 'Your profile picture has been updated successfully' : 'There is an error. The profile picture has not been updated',
+                    'message' => $update ? __('done.update_avatar') : __('error.update_avatar'),
                     'data' => null,
                 ]);
             case 'name':
@@ -76,7 +76,7 @@ class UserController extends Controller
 
                 return response()->json([
                     'status' => $update,
-                    'message' => $update ? 'The name has been updated successfully' : 'There is an error. The name was not updated',
+                    'message' => $update ? __('done.update_name') : __('error.update_name'),
                     'data' => null,
                 ]);
         }
@@ -89,7 +89,7 @@ class UserController extends Controller
                 return response()->json(
                     [
                         'status' => true,
-                        'message' =>  'Your account has been successfully deleted',
+                        'message' =>  __('done.delete_account'),
                         'data' => null,
                     ]
                 );
@@ -97,7 +97,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     'status' => false,
-                    'message' =>  'There is an error. Your account has not been deleted',
+                    'message' =>  __('error.delete_account'),
                     'data' => null,
                 ]
             );
@@ -114,7 +114,7 @@ class UserController extends Controller
             return response()->json(
                 [
                     'status' => true,
-                    'message' =>  'You are logged out',
+                    'message' =>  __('done.sign_out'),
                     'data' => null,
                 ]
             );
@@ -122,7 +122,7 @@ class UserController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'message' => 'There is an error. You are not logged out',
+                'message' => __('error.sign_out'),
                 'data' => null,
             ]
         );
@@ -137,7 +137,7 @@ class UserController extends Controller
                 return response()->json(
                     [
                         'status' => false,
-                        'message' => 'There is an error. Verification email was not sent',
+                        'message' => __('error.verify_email_sent'),
                         'data' => null,
                     ]
                 );
@@ -147,7 +147,7 @@ class UserController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'message' => 'Your email has already been verified',
+                'message' => __('error.verify_email_already'),
                 'data' => null,
             ]
         );

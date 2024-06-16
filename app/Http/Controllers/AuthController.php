@@ -32,7 +32,7 @@ class AuthController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'message' => 'There is an error. You are not logged in',
+                'message' => __('error.sign_in'),
                 'data' => null,
             ]
         );
@@ -79,7 +79,7 @@ class AuthController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'message' => 'There is an error. The account was not created',
+                'message' => __('error.sign_up'),
                 'data' => null,
             ]
         );
@@ -97,7 +97,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'status' => true,
-                    'message' => 'Email verification link has been sent.',
+                    'message' => __('done.send_code'),
                     'data' => null,
                 ]
             );
@@ -105,7 +105,7 @@ class AuthController extends Controller
         return response()->json(
             [
                 'status' => false,
-                'message' => 'There is an error. The email verification link was not sent.',
+                'message' => __('error.send_code'),
                 'data' => null,
             ]
         );
@@ -135,7 +135,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'status' => true,
-                    'message' => 'New password has been set successfully.',
+                    'message' => __('done.reset_rassword'),
                     'data' => null,
                 ]
             );
@@ -143,7 +143,7 @@ class AuthController extends Controller
             return response()->json(
                 [
                     'status' => false,
-                    'message' => 'There is an error, a new password has not been set.',
+                    'message' => __('error.reset_rassword'),
                     'data' => null,
                 ]
             );
