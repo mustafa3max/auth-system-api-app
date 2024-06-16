@@ -136,7 +136,7 @@ return [
         'numeric' => 'The :attribute field must be :size.',
         'string' => 'The :attribute field must be :size characters.',
     ],
-    'starts_with' => 'The :attribute field must start with one of the following: :values.',
+    'starts_with' => 'يجب أن يبدأ الحقل :attribute بواحد مما يلي: :values.',
     'string' => 'The :attribute field must be a string.',
     'timezone' => 'The :attribute field must be a valid timezone.',
     'unique' => 'The :attribute has already been taken.',
